@@ -4,7 +4,7 @@ import LogoutIcon from "../assets/logout.svg";
 
 export default function SideBar() {
   return (
-    <div className="sidebar fixed h-screen">
+    <div className="sidebar fixed h-screen md:hidden">
       <h2 className="font-bold text-2xl text-app-text pt-8 text-center">
         E-Survey Shangari-La
       </h2>
