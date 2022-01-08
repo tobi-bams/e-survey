@@ -1,12 +1,17 @@
 import React from "react";
 import Login from "./pages/login";
+import SignUp from "./pages/signup";
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 
 function App() {
   return (
     <div className="App font-body">
-      {/* <h1 className="text-red-300">Nice One</h1>
-      <Input placeholder={"Enter Email Address"} label={"Email address*"} /> */}
-      <Login />
+      <Router>
+        <Routes>
+          <Route path="/login" element={<Login />} />
+          <Route path="/" element={<SignUp />} />
+        </Routes>
+      </Router>
     </div>
   );
 }

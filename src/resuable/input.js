@@ -9,7 +9,7 @@ export default function Input({ label, onChange, type = "text", placeholder }) {
       <input
         type={"text"}
         placeholder={placeholder}
-        className="py-4 pl-6 shadow rounded-3xl bg-white font-medium text-sm text-primary outline-none"
+        className="py-4 pl-6 shadow-md rounded bg-white font-medium text-sm text-primary outline-none border"
       />
     </div>
   );

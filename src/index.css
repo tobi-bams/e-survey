@@ -4,3 +4,13 @@
 @tailwind components;
 
 @tailwind utilities;
+
+.signup {
+  margin-left: 40%;
+}
+
+@media (max-width: 767px) {
+  .signup {
+    margin-left: 0px;
+  }
+}

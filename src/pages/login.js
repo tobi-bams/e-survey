@@ -5,13 +5,14 @@ import Button from "../resuable/button";
 
 export default function Login() {
   return (
-    <div className="flex items-center">
+    <div className="flex items-center h-screen">
       <div
-        className="bg-cover relative md:hidden"
+        className="bg-cover fixed md:hidden"
         style={{
           backgroundImage: `url(${LoginBG})`,
-          height: "100vh",
+          minHeight: "100vh",
           minWidth: "40%",
+          backgroundColor: "red",
         }}
       >
         <div
@@ -19,7 +20,7 @@ export default function Login() {
           style={{ background: "rgba(134, 146, 166, 0.5)", width: "100%" }}
         ></div>
       </div>
-      <div className="flex flex-col mx-44 md:mx-0 md:px-8 sm:px-4 md:mt-20 w-3/5 md:w-full justify-center">
+      <div className="flex flex-col signup px-20 mt-12 md:mx-0 md:px-8 sm:px-4 md:mt-20 w-3/5 md:w-full justify-center md:ml-0">
         <h1 className="text-black font-bold text-3xl md:text-2xl">
           Login to your Account
         </h1>
@@ -34,7 +35,11 @@ export default function Login() {
             />
           </div>
           <div className="mt-6">
-            <Input label={"Password"} placeholder={"Enter Password"} />
+            <Input
+              label={"Password"}
+              placeholder={"Enter Password"}
+              type="password"
+            />
           </div>
           <div className="mt-6">
             <Button text={"Login"} />
