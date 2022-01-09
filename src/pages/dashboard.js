@@ -3,6 +3,7 @@ import SideBar from "../component/sidebar";
 import ProfileImage from "../assets/profile.png";
 import UserDashboard from "../component/userDashboard";
 import OfficerDashboard from "../component/officerDashboard";
+import AddQuestion from "../component/addQuestion";
 
 export default function Dashboard() {
   return (
@@ -15,7 +16,8 @@ export default function Dashboard() {
         </div>
         <div className="w-full mr-4 mt-12 md:px-4">
           {/* <UserDashboard /> */}
-          <OfficerDashboard />
+          {/* <OfficerDashboard /> */}
+          <AddQuestion />
         </div>
       </div>
     </div>
