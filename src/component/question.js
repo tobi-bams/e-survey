@@ -8,14 +8,16 @@ export default function Question({
   questions,
 }) {
   const selectOptionHandler = (index) => {
-    setQuestions((prev) => {
-      let newQuestions = [...prev];
-      newQuestions[questionIndex] = {
-        ...newQuestions[questionIndex],
-        selectedOption: index,
-      };
-      return newQuestions;
-    });
+    if (questions[questionIndex].answered === false) {
+      setQuestions((prev) => {
+        let newQuestions = [...prev];
+        newQuestions[questionIndex] = {
+          ...newQuestions[questionIndex],
+          selectedOption: index,
+        };
+        return newQuestions;
+      });
+    }
   };
   return (
     <div className="mt-3 mb-8">

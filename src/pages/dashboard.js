@@ -9,6 +9,21 @@ const Questions = [
       " Guy Bailey, Roy Hackett and Paul Stephenson made history in 1963, aspart of a protest against a bus company that refused to employ black and Asian drivers in which UK city?",
     options: ["London", "Edinburgh", "Liverpool", "Canary Wharf"],
     selectedOption: null,
+    answered: false,
+  },
+  {
+    question:
+      " Guy Bailey, Roy Hackett and Paul Stephenson made history in 1963, aspart of a protest against a bus company that refused to employ black and Asian drivers in which UK city?",
+    options: ["London", "Edinburgh", "Liverpool", "Canary Wharf"],
+    selectedOption: null,
+    answered: false,
+  },
+  {
+    question:
+      " Guy Bailey, Roy Hackett and Paul Stephenson made history in 1963, aspart of a protest against a bus company that refused to employ black and Asian drivers in which UK city?",
+    options: ["London", "Edinburgh", "Liverpool", "Canary Wharf"],
+    selectedOption: null,
+    answered: false,
   },
   {
     question:
@@ -21,18 +36,7 @@ const Questions = [
       " Guy Bailey, Roy Hackett and Paul Stephenson made history in 1963, aspart of a protest against a bus company that refused to employ black and Asian drivers in which UK city?",
     options: ["London", "Edinburgh", "Liverpool", "Canary Wharf"],
     selectedOption: null,
-  },
-  {
-    question:
-      " Guy Bailey, Roy Hackett and Paul Stephenson made history in 1963, aspart of a protest against a bus company that refused to employ black and Asian drivers in which UK city?",
-    options: ["London", "Edinburgh", "Liverpool", "Canary Wharf"],
-    selectedOption: null,
-  },
-  {
-    question:
-      " Guy Bailey, Roy Hackett and Paul Stephenson made history in 1963, aspart of a protest against a bus company that refused to employ black and Asian drivers in which UK city?",
-    options: ["London", "Edinburgh", "Liverpool", "Canary Wharf"],
-    selectedOption: null,
+    answered: false,
   },
 ];
 
