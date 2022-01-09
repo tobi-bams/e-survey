@@ -50,20 +50,13 @@ export default function AddQuestion() {
         ></textarea>
       </div>
       <div className="mt-8">
-        <div className="flex items-center justify-between md:flex-col">
-          <Input
-            type="number"
-            onChange={(e) => numberOfOptionHandler(e)}
-            label={"How Many Options does this question have?"}
-          />
-        </div>
         {options.map((option, index) => (
           <div className="mt-3" key={index}>
             <Input
               type="text"
               label={`Option ${index + 1}`}
               onChange={(e) => optionOnChangeHandler(e, index)}
-              value={options[index]}
+              value={option}
             />
           </div>
         ))}
