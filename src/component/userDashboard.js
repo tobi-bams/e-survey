@@ -2,51 +2,14 @@ import React, { useState, useEffect } from "react";
 import Question from "./question";
 import { GET_USER_QUESTION, SUBMIT_USER_QUESTION } from "../services/questions";
 import Swal from "sweetalert2";
-
-// const Questions = [
-//   {
-//     question:
-//       " Guy Bailey, Roy Hackett and Paul Stephenson made history in 1963, aspart of a protest against a bus company that refused to employ black and Asian drivers in which UK city?",
-//     options: ["London", "Edinburgh", "Liverpool", "Canary Wharf"],
-//     selectedOption: null,
-//     answered: false,
-//   },
-//   {
-//     question:
-//       " Guy Bailey, Roy Hackett and Paul Stephenson made history in 1963, aspart of a protest against a bus company that refused to employ black and Asian drivers in which UK city?",
-//     options: ["London", "Edinburgh", "Liverpool", "Canary Wharf"],
-//     selectedOption: null,
-//     answered: false,
-//   },
-//   {
-//     question:
-//       " Guy Bailey, Roy Hackett and Paul Stephenson made history in 1963, aspart of a protest against a bus company that refused to employ black and Asian drivers in which UK city?",
-//     options: ["London", "Edinburgh", "Liverpool", "Canary Wharf"],
-//     selectedOption: null,
-//     answered: false,
-//   },
-//   {
-//     question:
-//       " Guy Bailey, Roy Hackett and Paul Stephenson made history in 1963, aspart of a protest against a bus company that refused to employ black and Asian drivers in which UK city?",
-//     options: ["London", "Edinburgh", "Liverpool", "Canary Wharf"],
-//     selectedOption: null,
-//     answered: false,
-//   },
-//   {
-//     question:
-//       " Guy Bailey, Roy Hackett and Paul Stephenson made history in 1963, aspart of a protest against a bus company that refused to employ black and Asian drivers in which UK city?",
-//     options: ["London", "Edinburgh", "Liverpool", "Canary Wharf"],
-//     selectedOption: null,
-//     answered: false,
-//   },
-// ];
+import Button from "../resuable/button";
 
 export default function UserDashboard() {
   const [questions, setQuestions] = useState([]);
   useEffect(() => {
     getQuestions();
   }, []);
-
+  const [isLoading, setIsLoading] = useState();
   const getQuestions = () => {
     const callback = (response) => {
       setQuestions(response.data);
@@ -77,8 +40,10 @@ export default function UserDashboard() {
 
   const handleSubmit = () => {
     if (allAnsered()) {
+      setIsLoading(true);
       const callback = (response) => {
         if (response.status) {
+          setIsLoading(false);
           Swal.fire({
             icon: "success",
             title: `${response.message}`,
@@ -89,6 +54,7 @@ export default function UserDashboard() {
       };
       const onError = (err) => {
         console.log(err);
+        setIsLoading(false);
         Swal.fire({
           icon: "error",
           title: `${err.data.message}`,
@@ -117,13 +83,13 @@ export default function UserDashboard() {
           />
         ))}
       </div>
-      <div className="flex justify-center items-center mt-12 mb-12">
-        <button
+      <div className="flex justify-center items-center mt-12 mb-12 w-48 mx-auto">
+        <Button
           className="bg-primary text-white text-lg py-4 px-8 rounded-lg"
-          onClick={() => handleSubmit()}
-        >
-          Submit
-        </button>
+          click={() => handleSubmit()}
+          text={"Submit"}
+          loading={isLoading}
+        />
       </div>
     </div>
   );

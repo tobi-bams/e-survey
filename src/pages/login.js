@@ -19,7 +19,7 @@ export default function Login() {
     password: "",
     passwordError: "",
   });
-
+  const [isLoading, setIsLoading] = useState(false);
   const onChangeHandler = (e, field, errorField) => {
     setData((prev) => {
       return { ...prev, [field]: e.target.value, [errorField]: "" };
@@ -31,8 +31,10 @@ export default function Login() {
       emailValidatorChecker(data.email) &&
       inputValidatorChecker(data.password)
     ) {
+      setIsLoading(true);
       const callback = (response) => {
         if (response.status) {
+          setIsLoading(false);
           Swal.fire({
             icon: "success",
             title: `${response.message}`,
@@ -45,6 +47,7 @@ export default function Login() {
       };
       const onError = (error) => {
         console.log(error);
+        setIsLoading(false);
         Swal.fire({
           icon: "error",
           title: `${error.data.message}`,
@@ -108,7 +111,11 @@ export default function Login() {
             />
           </div>
           <div className="mt-6">
-            <Button text={"Login"} click={() => loginHandler()} />
+            <Button
+              text={"Login"}
+              click={() => loginHandler()}
+              loading={isLoading}
+            />
           </div>
 
           <p className="text-primary text-center mt-8">

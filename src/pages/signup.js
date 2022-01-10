@@ -27,6 +27,7 @@ export default function SignUp() {
     sni: "",
     sniError: "",
   });
+  const [isLoading, setIsLoading] = useState(false);
   const onChangeHandler = (e, field, fieldError) => {
     setData((prev) => {
       return { ...prev, [field]: e.target.value, [fieldError]: "" };
@@ -45,8 +46,10 @@ export default function SignUp() {
       inputValidatorChecker(data.sni) &&
       data.sni.length === 16
     ) {
+      setIsLoading(true);
       const callback = (response) => {
         if (response.status) {
+          setIsLoading(false);
           Swal.fire({
             icon: "success",
             title: `${response.message}`,
@@ -58,6 +61,7 @@ export default function SignUp() {
       };
       const onError = (error) => {
         console.log(error);
+        setIsLoading(false);
         Swal.fire({
           icon: "error",
           title: `${error.data.message}`,
@@ -197,7 +201,11 @@ export default function SignUp() {
             />
           </div>
           <div className="mt-6 mb-10">
-            <Button text={"Sign Up"} click={() => handleSubmit()} />
+            <Button
+              text={"Sign Up"}
+              click={() => handleSubmit()}
+              loading={isLoading}
+            />
           </div>
           <p className="text-primary text-center mb-8">
             Already have an account?{" "}

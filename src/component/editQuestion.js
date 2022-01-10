@@ -9,6 +9,7 @@ export default function AddQuestion({ setAdminCurrentStep, adminCurrentStep }) {
   const [question, setQuestion] = useState(adminCurrentStep.question);
   const [options, setOptions] = useState(adminCurrentStep.options);
   const [error, setError] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
   const optionOnChangeHandler = (e, index) => {
     setOptions((prev) => {
       let newOptionArray = [...prev];
@@ -53,9 +54,10 @@ export default function AddQuestion({ setAdminCurrentStep, adminCurrentStep }) {
 
   const createQuestionHandler = () => {
     if (inputValidatorChecker(question) && isallOptionFilled()) {
-      console.log(options);
+      setIsLoading(true);
       const callback = (response) => {
         if (response.status) {
+          setIsLoading(false);
           Swal.fire({
             icon: "success",
             title: `${response.message}`,
@@ -68,6 +70,7 @@ export default function AddQuestion({ setAdminCurrentStep, adminCurrentStep }) {
 
       const onError = (err) => {
         console.log(err);
+        setIsLoading(false);
         Swal.fire({
           icon: "error",
           title: `${error.data.message}`,
@@ -142,6 +145,7 @@ export default function AddQuestion({ setAdminCurrentStep, adminCurrentStep }) {
         <Button
           text={"Update Question"}
           click={() => createQuestionHandler()}
+          loading={isLoading}
         />
       </div>
     </div>

@@ -17,6 +17,33 @@
   margin-left: 25%;
 }
 
+.button::after {
+  content: "";
+  position: absolute;
+  width: 1.5rem;
+  height: 1.5rem;
+  border: 4px solid transparent;
+  right: 0;
+  left: 0;
+  bottom: 0;
+  top: 0;
+  margin: auto;
+  border-top-color: white;
+  border-left-color: white;
+  background-color: transparent;
+  border-radius: 50%;
+  animation: button-loader-spinner 1s ease infinite;
+}
+
+@keyframes button-loader-spinner {
+  from {
+    transform: rotate(0turn);
+  }
+  to {
+    transform: rotate(1turn);
+  }
+}
+
 @media (max-width: 767px) {
   .signup {
     margin-left: 0px;

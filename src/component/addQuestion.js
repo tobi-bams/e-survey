@@ -9,6 +9,7 @@ export default function AddQuestion({ setAdminCurrentStep }) {
   const [question, setQuestion] = useState("");
   const [options, setOptions] = useState([]);
   const [error, setError] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
   const numberOfOptionHandler = (e) => {
     if (e.target.value.length !== 0) {
       let optionNumbers = parseInt(e.target.value);
@@ -63,8 +64,10 @@ export default function AddQuestion({ setAdminCurrentStep }) {
 
   const createQuestionHandler = () => {
     if (inputValidatorChecker(question) && isallOptionFilled()) {
+      setIsLoading(true);
       const callback = (response) => {
         if (response.status) {
+          setIsLoading(false);
           Swal.fire({
             icon: "success",
             title: `${response.message}`,
@@ -77,6 +80,7 @@ export default function AddQuestion({ setAdminCurrentStep }) {
 
       const onError = (err) => {
         console.log(err);
+        setIsLoading(false);
         Swal.fire({
           icon: "error",
           title: `${error.data.message}`,
@@ -154,6 +158,7 @@ export default function AddQuestion({ setAdminCurrentStep }) {
         <Button
           text={"Create Question"}
           click={() => createQuestionHandler()}
+          loading={isLoading}
         />
       </div>
     </div>
