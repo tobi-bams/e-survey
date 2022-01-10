@@ -3,7 +3,7 @@ import Input from "../resuable/input";
 import Button from "../resuable/button";
 import { inputValidatorChecker } from "../helper/index";
 import Swal from "sweetalert2";
-import { CREATE_QUESTION } from "../services/questions";
+import { EDIT_QUESTION } from "../services/questions";
 
 export default function AddQuestion({ setAdminCurrentStep, adminCurrentStep }) {
   const [question, setQuestion] = useState(adminCurrentStep.question);
@@ -80,6 +80,15 @@ export default function AddQuestion({ setAdminCurrentStep, adminCurrentStep }) {
       //     callback,
       //     onError
       //   );
+      EDIT_QUESTION(
+        {
+          id: adminCurrentStep.id,
+          question: question,
+          options: options,
+        },
+        callback,
+        onError
+      );
     } else {
       if (!inputValidatorChecker(question)) {
         setError("Question is Required");
