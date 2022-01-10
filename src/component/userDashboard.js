@@ -1,44 +1,45 @@
 import React, { useState, useEffect } from "react";
 import Question from "./question";
-import { GET_USER_QUESTION } from "../services/questions";
+import { GET_USER_QUESTION, SUBMIT_USER_QUESTION } from "../services/questions";
+import Swal from "sweetalert2";
 
-const Questions = [
-  {
-    question:
-      " Guy Bailey, Roy Hackett and Paul Stephenson made history in 1963, aspart of a protest against a bus company that refused to employ black and Asian drivers in which UK city?",
-    options: ["London", "Edinburgh", "Liverpool", "Canary Wharf"],
-    selectedOption: null,
-    answered: false,
-  },
-  {
-    question:
-      " Guy Bailey, Roy Hackett and Paul Stephenson made history in 1963, aspart of a protest against a bus company that refused to employ black and Asian drivers in which UK city?",
-    options: ["London", "Edinburgh", "Liverpool", "Canary Wharf"],
-    selectedOption: null,
-    answered: false,
-  },
-  {
-    question:
-      " Guy Bailey, Roy Hackett and Paul Stephenson made history in 1963, aspart of a protest against a bus company that refused to employ black and Asian drivers in which UK city?",
-    options: ["London", "Edinburgh", "Liverpool", "Canary Wharf"],
-    selectedOption: null,
-    answered: false,
-  },
-  {
-    question:
-      " Guy Bailey, Roy Hackett and Paul Stephenson made history in 1963, aspart of a protest against a bus company that refused to employ black and Asian drivers in which UK city?",
-    options: ["London", "Edinburgh", "Liverpool", "Canary Wharf"],
-    selectedOption: null,
-    answered: false,
-  },
-  {
-    question:
-      " Guy Bailey, Roy Hackett and Paul Stephenson made history in 1963, aspart of a protest against a bus company that refused to employ black and Asian drivers in which UK city?",
-    options: ["London", "Edinburgh", "Liverpool", "Canary Wharf"],
-    selectedOption: null,
-    answered: false,
-  },
-];
+// const Questions = [
+//   {
+//     question:
+//       " Guy Bailey, Roy Hackett and Paul Stephenson made history in 1963, aspart of a protest against a bus company that refused to employ black and Asian drivers in which UK city?",
+//     options: ["London", "Edinburgh", "Liverpool", "Canary Wharf"],
+//     selectedOption: null,
+//     answered: false,
+//   },
+//   {
+//     question:
+//       " Guy Bailey, Roy Hackett and Paul Stephenson made history in 1963, aspart of a protest against a bus company that refused to employ black and Asian drivers in which UK city?",
+//     options: ["London", "Edinburgh", "Liverpool", "Canary Wharf"],
+//     selectedOption: null,
+//     answered: false,
+//   },
+//   {
+//     question:
+//       " Guy Bailey, Roy Hackett and Paul Stephenson made history in 1963, aspart of a protest against a bus company that refused to employ black and Asian drivers in which UK city?",
+//     options: ["London", "Edinburgh", "Liverpool", "Canary Wharf"],
+//     selectedOption: null,
+//     answered: false,
+//   },
+//   {
+//     question:
+//       " Guy Bailey, Roy Hackett and Paul Stephenson made history in 1963, aspart of a protest against a bus company that refused to employ black and Asian drivers in which UK city?",
+//     options: ["London", "Edinburgh", "Liverpool", "Canary Wharf"],
+//     selectedOption: null,
+//     answered: false,
+//   },
+//   {
+//     question:
+//       " Guy Bailey, Roy Hackett and Paul Stephenson made history in 1963, aspart of a protest against a bus company that refused to employ black and Asian drivers in which UK city?",
+//     options: ["London", "Edinburgh", "Liverpool", "Canary Wharf"],
+//     selectedOption: null,
+//     answered: false,
+//   },
+// ];
 
 export default function UserDashboard() {
   const [questions, setQuestions] = useState([]);
@@ -59,7 +60,27 @@ export default function UserDashboard() {
   };
 
   const handleSubmit = () => {
-    console.log(questions);
+    const callback = (response) => {
+      if (response.status) {
+        Swal.fire({
+          icon: "success",
+          title: `${response.message}`,
+          showConfirmButton: false,
+          timer: 1500,
+        });
+      }
+    };
+    const onError = (err) => {
+      console.log(err);
+      Swal.fire({
+        icon: "error",
+        title: `${err.data.message}`,
+        showConfirmButton: false,
+        timer: 1500,
+      });
+    };
+
+    SUBMIT_USER_QUESTION({ response: questions }, callback, onError);
   };
 
   return (
