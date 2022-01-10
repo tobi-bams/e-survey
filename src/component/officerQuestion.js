@@ -1,8 +1,25 @@
 import React from "react";
 import OfficerOption from "./officerOption";
+import Swal from "sweetalert2";
 
-export default function OfficerQuestion({ question, questionIndex }) {
-  console.log(question.options);
+export default function OfficerQuestion({
+  question,
+  questionIndex,
+  setAdminCurrentStep,
+  onDelete,
+}) {
+  const editHandler = () => {
+    if (question.response > 0) {
+      Swal.fire({
+        icon: "error",
+        title: `You cannot edit this question because it has been responded to by users`,
+        showConfirmButton: false,
+        timer: 2500,
+      });
+    } else {
+      setAdminCurrentStep((prev) => ({ ...prev, step: 3, ...question }));
+    }
+  };
   return (
     <div className="pr-28 mt-8 shadow-lg p-8 rounded-lg mr-8 md:mr-0 md:pr-6 md:p-6">
       <div className="flex items-center justify-between">
@@ -27,10 +44,18 @@ export default function OfficerQuestion({ question, questionIndex }) {
         ))}
       </div>
       <div className="flex justify-center items-center mt-8">
-        <button className="bg-primary text-white text-base py-3 px-8 rounded-lg mr-8">
+        <button
+          className="bg-primary text-white text-base py-3 px-8 rounded-lg mr-8"
+          onClick={() => {
+            editHandler();
+          }}
+        >
           Edit
         </button>
-        <button className="bg-red-300 text-white text-base py-3 px-8 rounded-lg">
+        <button
+          className="bg-red-300 text-white text-base py-3 px-8 rounded-lg"
+          onClick={onDelete}
+        >
           Delete
         </button>
       </div>

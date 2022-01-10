@@ -31,7 +31,7 @@ export default function AddQuestion({ setAdminCurrentStep }) {
   };
 
   const isallOptionFilled = () => {
-    const determiner = true;
+    let determiner = true;
     if (options.length <= 1) {
       Swal.fire({
         icon: "error",
@@ -39,7 +39,8 @@ export default function AddQuestion({ setAdminCurrentStep }) {
         showConfirmButton: false,
         timer: 2500,
       });
-      return false;
+      determiner = false;
+      return determiner;
     }
     options.forEach((option) => {
       if (option === "") {
@@ -49,7 +50,8 @@ export default function AddQuestion({ setAdminCurrentStep }) {
           showConfirmButton: false,
           timer: 2500,
         });
-        return false;
+        determiner = false;
+        return determiner;
       }
     });
     return determiner;

@@ -24,6 +24,38 @@ export default function OfficerDashboard({ setAdminCurrentStep }) {
   const addQuestionHandler = () => {
     setAdminCurrentStep((prev) => ({ ...prev, step: 2 }));
   };
+
+  const deleteQuestionHandler = () => {
+    Swal.fire({
+      title: "Delete Question",
+      text: "Are you sure, you want to delete question?",
+      icon: "warning",
+      confirmButtonColor: "#ec6056e2",
+      confirmButtonText: "Yes",
+      showConfirmButton: true,
+      showCancelButton: true,
+      cancelButtonText: "No",
+      cancelButtonColor: "#316be9",
+      closeOnConfirm: false,
+      closeOnCancel: false,
+      allowOutsideClick: true,
+    }).then((result) => {
+      if (result.dismiss !== "cancel") {
+        // onDeleteHandler(savedAddress.id);
+      } else {
+        Swal.fire({
+          title: "Cancelled",
+          text: "Question Not Deleted :)",
+          icon: "info",
+          showConfirmButton: false,
+          showCancelButton: false,
+          timerProgressBar: true,
+          timer: 1000,
+          allowOutsideClick: true,
+        });
+      }
+    });
+  };
   return (
     <div className="mb-12 mt-6">
       <div className="flex items-center justify-between md:flex-col">
@@ -46,6 +78,8 @@ export default function OfficerDashboard({ setAdminCurrentStep }) {
             key={index}
             question={question}
             questionIndex={index}
+            setAdminCurrentStep={setAdminCurrentStep}
+            onDelete={deleteQuestionHandler}
           />
         ))}
       </div>
