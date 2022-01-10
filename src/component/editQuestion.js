@@ -2,21 +2,9 @@ import React, { useState } from "react";
 import Input from "../resuable/input";
 import Button from "../resuable/button";
 
-export default function AddQuestion() {
+export default function EditQuestion() {
   const [question, setQuestion] = useState("");
   const [options, setOptions] = useState([]);
-  const numberOfOptionHandler = (e) => {
-    if (e.target.value.length !== 0) {
-      let optionNumbers = parseInt(e.target.value);
-      let newOptionArray = [];
-      for (let i = 0; i < optionNumbers; i++) {
-        newOptionArray.push("");
-      }
-      setOptions(newOptionArray);
-    } else {
-      setOptions([]);
-    }
-  };
 
   const optionOnChangeHandler = (e, index) => {
     setOptions((prev) => {

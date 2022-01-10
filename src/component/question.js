@@ -7,13 +7,13 @@ export default function Question({
   setQuestions,
   questions,
 }) {
-  const selectOptionHandler = (index) => {
+  const selectOptionHandler = (optionId) => {
     if (questions[questionIndex].answered === false) {
       setQuestions((prev) => {
         let newQuestions = [...prev];
         newQuestions[questionIndex] = {
           ...newQuestions[questionIndex],
-          selectedOption: index,
+          selectedOption: optionId,
         };
         return newQuestions;
       });
@@ -25,15 +25,15 @@ export default function Question({
         Question {questionIndex + 1}
       </p>
       <p className="text-primary text-lg mt-2 pr-28 md:pr-0 text-justify">
-        {question.question}
+        {question.question.text}
       </p>
       <p className="font-semibold text-primary text-lg my-3">Choose answer</p>
-      {question.options.map((option, index) => (
+      {question.question.options.map((option, index) => (
         <Option
-          text={option}
+          text={option.text}
           key={index}
-          click={() => selectOptionHandler(index)}
-          checked={questions[questionIndex].selectedOption === index}
+          click={() => selectOptionHandler(option.id)}
+          checked={questions[questionIndex].selectedOption === option.id}
         />
       ))}
     </div>

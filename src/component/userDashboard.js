@@ -1,5 +1,6 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Question from "./question";
+import { GET_USER_QUESTION } from "../services/questions";
 
 const Questions = [
   {
@@ -40,10 +41,27 @@ const Questions = [
 ];
 
 export default function UserDashboard() {
-  const [questions, setQuestions] = useState(Questions);
+  const [questions, setQuestions] = useState([]);
+  useEffect(() => {
+    getQuestions();
+  }, []);
+
+  const getQuestions = () => {
+    const callback = (response) => {
+      console.log(response.data);
+      setQuestions(response.data);
+    };
+    const onError = (err) => {
+      console.log(err);
+    };
+
+    GET_USER_QUESTION(callback, onError);
+  };
+
   const handleSubmit = () => {
     console.log(questions);
   };
+
   return (
     <div>
       <h1 className="text-app-text text-3xl font-bold">Survey Questions</h1>
