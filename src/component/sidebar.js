@@ -1,8 +1,15 @@
 import React from "react";
 import DashboardIcon from "../assets/dashboard.svg";
 import LogoutIcon from "../assets/logout.svg";
+import { useNavigate } from "react-router-dom";
 
 export default function SideBar() {
+  const navigate = useNavigate();
+
+  const logoutHandler = () => {
+    window.localStorage.removeItem("user-data");
+    navigate("/login");
+  };
   return (
     <div className="sidebar fixed h-screen md:hidden">
       <h2 className="font-bold text-2xl text-app-text pt-8 text-center">
@@ -17,7 +24,10 @@ export default function SideBar() {
         </div>
         <div className="flex items-center w-full rounded-lg py-4 cursor-pointer mt-4">
           <img src={LogoutIcon} alt="Dashboard Icon" className="mx-6" />
-          <button className="font-semibold text-xl text-primary">
+          <button
+            className="font-semibold text-xl text-primary"
+            onClick={logoutHandler}
+          >
             Log Out
           </button>
         </div>
