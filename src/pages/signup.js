@@ -199,6 +199,15 @@ export default function SignUp() {
           <div className="mt-6 mb-10">
             <Button text={"Sign Up"} click={() => handleSubmit()} />
           </div>
+          <p className="text-primary text-center mb-8">
+            Already have an account?{" "}
+            <span
+              className="underline cursor-pointer"
+              onClick={() => navigator("/login")}
+            >
+              login
+            </span>
+          </p>
         </div>
       </div>
     </div>

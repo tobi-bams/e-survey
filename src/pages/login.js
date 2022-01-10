@@ -110,6 +110,16 @@ export default function Login() {
           <div className="mt-6">
             <Button text={"Login"} click={() => loginHandler()} />
           </div>
+
+          <p className="text-primary text-center mt-8">
+            Don't have an account yet?{" "}
+            <span
+              className="underline cursor-pointer"
+              onClick={() => navigator("/signup")}
+            >
+              Sign Up
+            </span>
+          </p>
         </div>
       </div>
     </div>

@@ -58,28 +58,46 @@ export default function UserDashboard() {
     GET_USER_QUESTION(callback, onError);
   };
 
-  const handleSubmit = () => {
-    const callback = (response) => {
-      if (response.status) {
+  const allAnsered = () => {
+    let determiner = true;
+    questions.forEach((question) => {
+      if (question.selectedOption === null && question.answered === false) {
+        determiner = false;
         Swal.fire({
-          icon: "success",
-          title: `${response.message}`,
+          icon: "error",
+          title: `Please answer all questions`,
           showConfirmButton: false,
           timer: 1500,
         });
+        return determiner;
       }
-    };
-    const onError = (err) => {
-      console.log(err);
-      Swal.fire({
-        icon: "error",
-        title: `${err.data.message}`,
-        showConfirmButton: false,
-        timer: 1500,
-      });
-    };
-    console.log(questions);
-    SUBMIT_USER_QUESTION({ response: questions }, callback, onError);
+    });
+    return determiner;
+  };
+
+  const handleSubmit = () => {
+    if (allAnsered()) {
+      const callback = (response) => {
+        if (response.status) {
+          Swal.fire({
+            icon: "success",
+            title: `${response.message}`,
+            showConfirmButton: false,
+            timer: 1500,
+          });
+        }
+      };
+      const onError = (err) => {
+        console.log(err);
+        Swal.fire({
+          icon: "error",
+          title: `${err.data.message}`,
+          showConfirmButton: false,
+          timer: 1500,
+        });
+      };
+      SUBMIT_USER_QUESTION({ response: questions }, callback, onError);
+    }
   };
 
   return (
