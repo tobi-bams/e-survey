@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { GET_ADMIN_QUESTION } from "../services/questions";
+import { GET_ADMIN_QUESTION, DELETE_QUESTION } from "../services/questions";
 import OfficerQuestion from "./officerQuestion";
 import Button from "../resuable/button";
 import Swal from "sweetalert2";
@@ -9,11 +9,10 @@ export default function OfficerDashboard({ setAdminCurrentStep }) {
   useEffect(() => {
     getAdminQuestion();
   }, []);
-  console.log(questions);
+
   const getAdminQuestion = () => {
     const callback = (response) => {
       setQuestions(response.data);
-      console.log(response.data);
     };
     const onError = (err) => {
       console.log(err);
@@ -25,7 +24,32 @@ export default function OfficerDashboard({ setAdminCurrentStep }) {
     setAdminCurrentStep((prev) => ({ ...prev, step: 2 }));
   };
 
-  const deleteQuestionHandler = () => {
+  const onDeleteHandler = (id) => {
+    const callback = (response) => {
+      if (response.status) {
+        getAdminQuestion();
+        Swal.fire({
+          icon: "success",
+          title: `${response.message}`,
+          showConfirmButton: false,
+          timer: 1500,
+        });
+      }
+    };
+    const onError = (err) => {
+      console.log(err);
+      Swal.fire({
+        icon: "error",
+        title: `${err.data.message}`,
+        showConfirmButton: false,
+        timer: 2500,
+      });
+    };
+
+    DELETE_QUESTION(id, callback, onError);
+  };
+
+  const deleteQuestionHandler = (id) => {
     Swal.fire({
       title: "Delete Question",
       text: "Are you sure, you want to delete question?",
@@ -41,7 +65,7 @@ export default function OfficerDashboard({ setAdminCurrentStep }) {
       allowOutsideClick: true,
     }).then((result) => {
       if (result.dismiss !== "cancel") {
-        // onDeleteHandler(savedAddress.id);
+        onDeleteHandler(id);
       } else {
         Swal.fire({
           title: "Cancelled",
@@ -79,7 +103,7 @@ export default function OfficerDashboard({ setAdminCurrentStep }) {
             question={question}
             questionIndex={index}
             setAdminCurrentStep={setAdminCurrentStep}
-            onDelete={deleteQuestionHandler}
+            onDelete={() => deleteQuestionHandler(question.id)}
           />
         ))}
       </div>

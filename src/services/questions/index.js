@@ -69,3 +69,17 @@ export async function EDIT_QUESTION(data, callback, onError) {
     onError && onError(error);
   }
 }
+
+export async function DELETE_QUESTION(id, callback, onError) {
+  try {
+    let question = await request.delete(`/question/${id}`);
+    if (question.data) {
+      callback && callback(question.data);
+    } else {
+      throw question;
+    }
+    return question;
+  } catch (error) {
+    onError && onError(error);
+  }
+}

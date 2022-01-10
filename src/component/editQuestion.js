@@ -75,11 +75,6 @@ export default function AddQuestion({ setAdminCurrentStep, adminCurrentStep }) {
           timer: 2500,
         });
       };
-      //   CREATE_QUESTION(
-      //     { question: question, options: options },
-      //     callback,
-      //     onError
-      //   );
       EDIT_QUESTION(
         {
           id: adminCurrentStep.id,
