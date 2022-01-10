@@ -1,9 +1,45 @@
-import React from "react";
+import React, { useState } from "react";
 import LoginBG from "../assets/login-bg.png";
 import Input from "../resuable/input";
 import Button from "../resuable/button";
+import { LOGIN } from "../services/authentication";
+import Swal from "sweetalert2";
+import { useNavigate } from "react-router-dom";
 
 export default function Login() {
+  const [data, setData] = useState({ email: "", password: "" });
+
+  const onChangeHandler = (e, field) => {
+    setData((prev) => {
+      return { ...prev, [field]: e.target.value };
+    });
+  };
+  const navigator = useNavigate();
+  const loginHandler = () => {
+    const callback = (response) => {
+      if (response.status) {
+        Swal.fire({
+          icon: "success",
+          title: `${response.message}`,
+          showConfirmButton: false,
+          timer: 1500,
+        });
+        window.localStorage.setItem("user-data", JSON.stringify(response));
+        navigator("/dashboard");
+      }
+    };
+    const onError = (error) => {
+      console.log(error);
+      Swal.fire({
+        icon: "error",
+        title: `${error.data.message}`,
+        showConfirmButton: false,
+        timer: 2500,
+      });
+    };
+
+    LOGIN(data, callback, onError);
+  };
   return (
     <div className="flex items-center h-screen">
       <div
@@ -32,6 +68,8 @@ export default function Login() {
             <Input
               label={"Email Address"}
               placeholder={"Enter Email Address"}
+              value={data.email}
+              onChange={(e) => onChangeHandler(e, "email")}
             />
           </div>
           <div className="mt-6">
@@ -39,10 +77,12 @@ export default function Login() {
               label={"Password"}
               placeholder={"Enter Password"}
               type="password"
+              value={data.password}
+              onChange={(e) => onChangeHandler(e, "password")}
             />
           </div>
           <div className="mt-6">
-            <Button text={"Login"} />
+            <Button text={"Login"} click={() => loginHandler()} />
           </div>
         </div>
       </div>
