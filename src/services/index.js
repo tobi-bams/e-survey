@@ -2,7 +2,7 @@ import axios from "axios";
 
 const request = axios.create({
   //   baseURL: "http://localhost:5000",
-  baseURL: "https://enigmatic-basin-04401.herokuapp.com/",
+  baseURL: "https://enigmatic-basin-04401.herokuapp.com",
 });
 
 request.interceptors.request.use(
