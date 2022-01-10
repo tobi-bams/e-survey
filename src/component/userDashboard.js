@@ -49,7 +49,6 @@ export default function UserDashboard() {
 
   const getQuestions = () => {
     const callback = (response) => {
-      console.log(response.data);
       setQuestions(response.data);
     };
     const onError = (err) => {

@@ -27,3 +27,17 @@ export async function SUBMIT_USER_QUESTION(data, callback, onError) {
     onError && onError(err);
   }
 }
+
+export async function GET_ADMIN_QUESTION(callback, onError) {
+  try {
+    let question = await request.get(`/admin-questions`);
+    if (question.data) {
+      callback && callback(question.data);
+    } else {
+      throw question;
+    }
+    return question;
+  } catch (error) {
+    onError && onError(error);
+  }
+}

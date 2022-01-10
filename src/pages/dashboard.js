@@ -32,13 +32,13 @@ export default function Dashboard() {
           {currentUser.role === "user" && <UserDashboard />}
           {currentUser.role === "admin" && (
             <div>
-              {adminCurrentStep === 1 && (
+              {adminCurrentStep.step === 1 && (
                 <OfficerDashboard setAdminCurrentStep={setAdminCurrentStep} />
               )}
-              {adminCurrentStep === 2 && (
+              {adminCurrentStep.step === 2 && (
                 <AddQuestion setAdminCurrentStep={setAdminCurrentStep} />
               )}
-              {adminCurrentStep === 3 && (
+              {adminCurrentStep.step === 3 && (
                 <EditQuestion
                   setAdminCurrentStep={setAdminCurrentStep}
                   adminCurrentStep={adminCurrentStep}
