@@ -41,3 +41,17 @@ export async function GET_ADMIN_QUESTION(callback, onError) {
     onError && onError(error);
   }
 }
+
+export async function CREATE_QUESTION(data, callback, onError) {
+  try {
+    let question = await request.post(`/question`, data);
+    if (question.data) {
+      callback && callback(question.data);
+    } else {
+      throw question;
+    }
+    return question;
+  } catch (error) {
+    onError && onError(error);
+  }
+}
