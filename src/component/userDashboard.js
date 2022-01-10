@@ -42,6 +42,7 @@ export default function UserDashboard() {
     if (allAnsered()) {
       setIsLoading(true);
       const callback = (response) => {
+        console.log(response);
         if (response.status) {
           setIsLoading(false);
           Swal.fire({
