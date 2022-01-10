@@ -5,40 +5,64 @@ import Button from "../resuable/button";
 import { LOGIN } from "../services/authentication";
 import Swal from "sweetalert2";
 import { useNavigate } from "react-router-dom";
+import {
+  inputValidatorChecker,
+  inputValidatorErrorState,
+  emailValidatorChecker,
+  emailValidatorError,
+} from "../helper/index";
 
 export default function Login() {
-  const [data, setData] = useState({ email: "", password: "" });
+  const [data, setData] = useState({
+    email: "",
+    emailError: "",
+    password: "",
+    passwordError: "",
+  });
 
-  const onChangeHandler = (e, field) => {
+  const onChangeHandler = (e, field, errorField) => {
     setData((prev) => {
-      return { ...prev, [field]: e.target.value };
+      return { ...prev, [field]: e.target.value, [errorField]: "" };
     });
   };
   const navigator = useNavigate();
   const loginHandler = () => {
-    const callback = (response) => {
-      if (response.status) {
+    if (
+      emailValidatorChecker(data.email) &&
+      inputValidatorChecker(data.password)
+    ) {
+      const callback = (response) => {
+        if (response.status) {
+          Swal.fire({
+            icon: "success",
+            title: `${response.message}`,
+            showConfirmButton: false,
+            timer: 1500,
+          });
+          window.localStorage.setItem("user-data", JSON.stringify(response));
+          navigator("/dashboard");
+        }
+      };
+      const onError = (error) => {
+        console.log(error);
         Swal.fire({
-          icon: "success",
-          title: `${response.message}`,
+          icon: "error",
+          title: `${error.data.message}`,
           showConfirmButton: false,
-          timer: 1500,
+          timer: 2500,
         });
-        window.localStorage.setItem("user-data", JSON.stringify(response));
-        navigator("/dashboard");
-      }
-    };
-    const onError = (error) => {
-      console.log(error);
-      Swal.fire({
-        icon: "error",
-        title: `${error.data.message}`,
-        showConfirmButton: false,
-        timer: 2500,
-      });
-    };
+      };
 
-    LOGIN(data, callback, onError);
+      LOGIN(data, callback, onError);
+    } else {
+      emailValidatorError(data.email, setData);
+      inputValidatorErrorState(
+        data.password,
+        setData,
+        "passwordError",
+        "Password is required"
+      );
+    }
   };
   return (
     <div className="flex items-center h-screen">
@@ -69,7 +93,8 @@ export default function Login() {
               label={"Email Address"}
               placeholder={"Enter Email Address"}
               value={data.email}
-              onChange={(e) => onChangeHandler(e, "email")}
+              onChange={(e) => onChangeHandler(e, "email", "emailError")}
+              error={data.emailError}
             />
           </div>
           <div className="mt-6">
@@ -78,7 +103,8 @@ export default function Login() {
               placeholder={"Enter Password"}
               type="password"
               value={data.password}
-              onChange={(e) => onChangeHandler(e, "password")}
+              onChange={(e) => onChangeHandler(e, "password", "passwordError")}
+              error={data.passwordError}
             />
           </div>
           <div className="mt-6">

@@ -6,6 +6,7 @@ export default function Input({
   type = "text",
   placeholder,
   value,
+  error = null,
 }) {
   return (
     <div className="flex flex-col w-full">
@@ -19,6 +20,11 @@ export default function Input({
         onChange={(e) => onChange(e)}
         value={value}
       />
+      {error && (
+        <span className="text-red-500 text-sm bg-red-200 p-4 rounded my-1">
+          {error}
+        </span>
+      )}
     </div>
   );
 }

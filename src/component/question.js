@@ -15,6 +15,7 @@ export default function Question({
           ...newQuestions[questionIndex],
           selectedOption: optionId,
         };
+        console.log(newQuestions);
         return newQuestions;
       });
     }

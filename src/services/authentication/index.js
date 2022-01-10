@@ -1,4 +1,5 @@
 import request from "..";
+import SignUp from "../../pages/signup";
 
 export async function LOGIN(data, callback, onError) {
   try {
@@ -9,6 +10,20 @@ export async function LOGIN(data, callback, onError) {
       throw login;
     }
     return login;
+  } catch (error) {
+    onError && onError(error);
+  }
+}
+
+export async function SIGNUP(data, callback, onError) {
+  try {
+    let signup = await request.post(`/signup`, data);
+    if (signup.data) {
+      callback && callback(signup.data);
+    } else {
+      throw signup;
+    }
+    return signup;
   } catch (error) {
     onError && onError(error);
   }

@@ -79,7 +79,7 @@ export default function UserDashboard() {
         timer: 1500,
       });
     };
-
+    console.log(questions);
     SUBMIT_USER_QUESTION({ response: questions }, callback, onError);
   };
 
