@@ -38,7 +38,6 @@ request.interceptors.response.use(
     return response;
   },
   function (error) {
-    console.log(error);
     if (401 === error.response.status) {
       window.localStorage.removeItem("user-data");
       return window.location.replace("/login");

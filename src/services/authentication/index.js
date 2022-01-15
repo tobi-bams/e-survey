@@ -1,5 +1,4 @@
 import request from "..";
-import SignUp from "../../pages/signup";
 
 export async function LOGIN(data, callback, onError) {
   try {
